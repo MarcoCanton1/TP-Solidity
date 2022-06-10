@@ -7,6 +7,7 @@ contract Estudiante{
     string private _apellido;
     string private _curso;
     address private _docente; // es address debido a que es el que lo envia
+    uint private _cantidad_materias[];
  
     mapping(string => uint8) private notas_materias; // elegimos uint8 debido a que almacena mas de 100 valores
  
@@ -19,7 +20,7 @@ contract Estudiante{
     }
  
     function apellido() public view returns (string memory){
-        return _apellido;
+        return _apellido; // devuelve el apellido del estudiante
     }
  
     function nombre_completo() public view returns (string memory){
@@ -34,6 +35,12 @@ contract Estudiante{
     function set_nota_materia(uint8 nota, string memory materia) public{
         require(msg.sender == _docente, "Solo el docente puede poner notas"); // revisa que el que mande la nota sea el docente registrado y sino devuelve un mensaje de error
         notas_materias[materia] = nota; // guarda en el array el valor (nota) de la key insertada (materia)
+        if (_cantidad_materias[materia] == materia){
+            return "La materia ya fue ingresada"
+        }
+        else{
+            _cantidad_materias[] = materia;
+        }
     }
  
  
@@ -42,13 +49,20 @@ contract Estudiante{
     }
  
     function aprobo(string memory materia){
-        if(notas_materias[materia] >= 60)
+        if(notas_materias[materia] >= 60) //si la nota de la materia especificada es mayor o igual a 60 devuelve true que significa que aprobo
         {
             return true;
         }
-        else
+        else //en caso de que la nota sea menor a 60 devuelve false, indicando que reprobo
         {
             return false;
         }
     }
-}
+
+    function promedio(){
+        int total = 0;
+        for (int i = 0; i < _cantidad_materias[]; i++){
+            total += notas_materias[i];
+        }
+        total /= i + 1;
+    }
