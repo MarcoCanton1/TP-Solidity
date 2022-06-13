@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+PDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
  
 contract Estudiante{
@@ -36,8 +36,9 @@ contract Estudiante{
     function set_nota_materia(uint8 nota, string memory materia, uint8 bimsetre_) public {
         require(msg.sender == _docente, "Solo el docente puede poner notas"); // revisa que el que mande la nota sea el docente registrado y sino devuelve un mensaje de error
         notas_materias[materia] = nota; // guarda en el array el valor (nota) de la key insertada (materia)
+        _cantidad_materias.push(materia);
         if (notas_materias[materia] == 0){
-            _cantidad_materias.push(materia);
+            
         }
         else{
              // requiere que la nota de la materia no sea 0
