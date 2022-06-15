@@ -1,4 +1,4 @@
-PDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
  
 contract Estudiante{
@@ -36,12 +36,7 @@ contract Estudiante{
     function set_nota_materia(uint8 nota, string memory materia, uint8 bimsetre_) public {
         require(msg.sender == _docente, "Solo el docente puede poner notas"); // revisa que el que mande la nota sea el docente registrado y sino devuelve un mensaje de error
         notas_materias[materia] = nota; // guarda en el array el valor (nota) de la key insertada (materia)
-        _cantidad_materias.push(materia);
-        if (notas_materias[materia] == 0){
-            
-        }
-        else{
-             // requiere que la nota de la materia no sea 0
+        _cantidad_materias.push(materia); //guarda en cantidad de materias la materia
         }
     }
  
@@ -61,12 +56,12 @@ contract Estudiante{
         }
     }
 
-    function promedio() public view returns (uint){
-        uint total = 0;
-        uint cantidad_de_materias = _cantidad_materias.length;
-        for (uint i = 0; i < cantidad_de_materias; i++){
-            total += notas_materias[_cantidad_materias[i]];
+    function promedio() public view returns (uint){ //esta funcion utiliza un array y un mapping mas
+        uint total = 0; //se desclara la variable que tendra el total de la suma de las notas
+        uint cantidad_de_materias = _cantidad_materias.length; //se guarda la cantidad de materias
+        for (uint i = 0; i < cantidad_de_materias; i++){ //se repite pr la cantidad de materias
+            total += notas_materias[_cantidad_materias[i]]; //se suma al total la nota de la materia correspondiente a su materia
         }
-        return total / cantidad_de_materias;
+        return total / cantidad_de_materias; //el total se divide por la cantidad de materias
     }
 }
